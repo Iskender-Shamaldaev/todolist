@@ -11,6 +11,18 @@ const App = () => {
         {text: 'Sam',  id: 5235},
     ]);
 
+    const [currentTask, setCurrentTask] = useState([
+    {text: '',  id: ""}
+    ])
+
+    const enterTask = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+        const messagesCopy = [...currentTask];
+        const messageCopy = {...currentTask[index]};
+        messageCopy.text = event.target.value;
+        messagesCopy[index] = messageCopy;
+        setCurrentTask(messagesCopy);
+    };
+
     let messagesList: React.ReactNode | null = null;
 
     messagesList = messages.map((task, index) => {
@@ -26,7 +38,9 @@ const App = () => {
 
     return (
         <div className="App">
-            <AddTaskForm/>
+            <AddTaskForm
+                onEnterMessage= {event => enterTask(event, 0)}
+            />
             {messagesList}
         </div>
     );

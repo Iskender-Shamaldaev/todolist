@@ -1,10 +1,14 @@
 import React from 'react';
 
-const Task = () => {
+interface IPersonProps extends React.PropsWithChildren {
+    text: string;
+}
+
+const Task: React.FC<IPersonProps> = props => {
     return (
         <div className="task-wrap">
-            <p className="text">Add new Task</p>
-            <button className="btn-remove" >Remove</button>
+            <p className="text">{props.text}</p>
+            <button className="btn-remove">Remove</button>
         </div>
     );
 };

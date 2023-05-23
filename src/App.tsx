@@ -11,14 +11,23 @@ const App = () => {
         {text: 'Sam',  id: 5235},
     ]);
 
+    let messagesList: React.ReactNode | null = null;
+
+    messagesList = messages.map((task, index) => {
+        return (
+            <Task
+                key={messages[index].id}
+                text={messages[index].text}
+            >
+            </Task>
+        );
+    });
+
 
     return (
         <div className="App">
             <AddTaskForm/>
-            <Task text={messages[0].text}/>
-            <Task text={messages[1].text}/>
-            <Task text={messages[2].text}/>
-            <Task text={messages[3].text}/>
+            {messagesList}
         </div>
     );
 };

@@ -41,3 +41,15 @@
     font-size: 17px;
 }
 
+.task-wrap {
+    display: flex;
+    justify-content: space-between;
+    max-width: 590px;
+    border: 2px solid black;
+    margin: 20px auto 0;
+}
+
+.text {
+    margin-left: 5px;
+}
+

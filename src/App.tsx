@@ -2,46 +2,54 @@ import React, {useState} from 'react';
 import './App.css';
 import AddTaskForm from "./AddTaskForm/AddTaskForm";
 import Task from "./Task/Task";
+import {nanoid} from 'nanoid';
 
 const App = () => {
-    const [messages, setMessages] = useState([
-        {text: 'Leon',  id: 24345},
-        {text: 'Frodo',  id: 3456},
-        {text: 'Bilbo',  id: 4234},
-        {text: 'Sam',  id: 5235},
-    ]);
+    const [messages, setMessages] = useState<{ text: string; id: string }[]>([]);
 
-    const [currentTask, setCurrentTask] = useState([
-    {text: '',  id: ""}
-    ])
 
-    const enterTask = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
-        const messagesCopy = [...currentTask];
-        const messageCopy = {...currentTask[index]};
+    const [currentTask, setCurrentTask] = useState(
+        {text: '', id: ""}
+    )
+
+
+    const enterTask = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const messageCopy = {...currentTask};
         messageCopy.text = event.target.value;
-        messagesCopy[index] = messageCopy;
-        setCurrentTask(messagesCopy);
+        setCurrentTask(messageCopy);
     };
 
-    let messagesList: React.ReactNode | null = null;
 
-    messagesList = messages.map((task, index) => {
-        return (
-            <Task
-                key={messages[index].id}
-                text={messages[index].text}
-            >
-            </Task>
-        );
-    });
+    const addMessage = () => {
+        const messageCopy = {...currentTask};
+        messageCopy.text = currentTask.text;
+        messageCopy.id = currentTask.id;
+        messageCopy.id = nanoid();
+        setMessages([...messages, messageCopy]);
+    };
+
+
+    const removeMessage = (id: string) => {
+        const messagesCopy = [...messages];
+        const index = messages.findIndex(message => message.id === id);
+        messagesCopy.splice(index, 1);
+        setMessages(messagesCopy);
+    };
 
 
     return (
         <div className="App">
             <AddTaskForm
-                onEnterMessage= {event => enterTask(event, 0)}
+                onEnterMessage={event => enterTask(event)}
+                onButtonClick={() => addMessage()}
             />
-            {messagesList}
+            {messages.map((task) => (
+                <Task
+                    key={task.id}
+                    text={task.text}
+                    onRemoveMessage={() => removeMessage(task.id)}
+                />
+            ))}
         </div>
     );
 };

@@ -60,7 +60,7 @@
     display: inline-block;
     box-sizing: border-box;
     padding: 38px 42px 10px 7px;
-    margin: 5px;
+    margin-left: auto;
     outline: none;
     border: none;
     border-radius: 6px;
@@ -85,6 +85,20 @@
 
 .btn-remove:focus-visible {
     box-shadow: 0 0 0 2px #666;
+}
+
+.checkList {
+    display: flex;
+    width: 100%;
+}
+
+
+.check:checked+.text-label {
+  text-decoration: line-through;
+}
+
+.text {
+    margin-top: 14px;
 }
 
 

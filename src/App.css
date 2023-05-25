@@ -95,6 +95,8 @@
 
 .check:checked+.text-label {
   text-decoration: line-through;
+    color: red;
+    font-size: 20px;
 }
 
 .text {
